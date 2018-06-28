@@ -21,7 +21,7 @@
         android:title="" />
 
     <item
-        android:id="@+id/ic_android"
+        android:id="@+id/ic_profile"
         android:icon="@drawable/ic_android"
         android:title="" />
 </menu>
