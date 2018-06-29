@@ -1,11 +1,13 @@
 package com.sharonov.nikiz.nikizinstagram.fragments
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.sharonov.nikiz.nikizinstagram.R
+import com.sharonov.nikiz.nikizinstagram.activities.AccountSettingsActivity
 import kotlinx.android.synthetic.main.snippet_top_profilebar.*
 
 class ProfileFragment : Fragment() {
@@ -26,19 +28,6 @@ class ProfileFragment : Fragment() {
 
     private fun setupToolbar() {
         (activity as AppCompatActivity).setSupportActionBar(profileToolbar)
-        profileToolbar.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.profile_menu -> {
-                    true
-                }
-                else -> {
-                    false
-                }
-            }
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.profile_menu, menu)
+        profileMenu.setOnClickListener { startActivity(Intent(activity, AccountSettingsActivity::class.java)) }
     }
 }
