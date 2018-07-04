@@ -13,12 +13,12 @@
             android:text="@string/prompt_account_settings"
             android:textColor="@color/black"
             android:textSize="35sp"
-            android:background="@drawable/white_grey_border_bottom"/>
+            android:background="@drawable/grey_border_bottom"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/settingsRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/account_settings_text_view">
         </android.support.v7.widget.RecyclerView>
 
