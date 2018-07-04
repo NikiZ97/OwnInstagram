@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.sharonov.nikiz.nikizinstagram.R
 import com.sharonov.nikiz.nikizinstagram.activities.AccountSettingsActivity
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.snippet_top_profilebar.*
 
 class ProfileFragment : Fragment() {
@@ -24,6 +25,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
+        profileProgressBar.visibility = View.GONE
     }
 
     private fun setupToolbar() {

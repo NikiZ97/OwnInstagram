@@ -5,7 +5,19 @@
 
     <!-- Toolbar titles -->
     <string name="prompt_toolbar_options">Options</string>
+    <string name="prompt_toolbar_edit_profile">Edit Profile</string>
 
     <!-- Account settings screen -->
     <string name="prompt_account_settings">Account settings</string>
+    <string name="prompt_edit_profile_text">Edit Profile</string>
+    <string name="prompt_edit_text_username">username</string>
+    <string name="prompt_edit_text_display_name">display name</string>
+    <string name="prompt_edit_text_website">website</string>
+    <string name="prompt_edit_text_email">email</string>
+    <string name="prompt_edit_text_phone">phone</string>
+    <string name="prompt_edit_text_description">description</string>
+    <string name="prompt_private_information">Private information</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

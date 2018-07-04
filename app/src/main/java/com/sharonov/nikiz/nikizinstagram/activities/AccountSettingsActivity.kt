@@ -23,7 +23,7 @@ class AccountSettingsActivity : AppCompatActivity() {
         var settingsList: List<String> = ArrayList()
         settingsList += "Edit profile"
         settingsList += "Sign Out"
-        val adapter = UserSettingsAdapter(settingsList)
+        val adapter = UserSettingsAdapter(settingsList, this)
         settingsRecyclerView.layoutManager = LinearLayoutManager(this)
 
         settingsRecyclerView.adapter = adapter
