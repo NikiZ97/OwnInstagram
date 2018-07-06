@@ -12,14 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.HomeActivity">
+
+        </activity>
+        <activity android:name=".activities.AccountSettingsActivity" />
+        <activity android:name=".activities.EditProfileActivity" />
+        <activity android:name=".activities.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AccountSettingsActivity" />
-        <activity android:name=".activities.EditProfileActivity"></activity>
+        <activity android:name=".activities.RegisterActivity"></activity>
     </application>
 
 </manifest>
