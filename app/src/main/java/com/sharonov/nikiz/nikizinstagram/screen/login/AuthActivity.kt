@@ -4,27 +4,29 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.Toast
 import com.sharonov.nikiz.nikizinstagram.R
 import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : AppCompatActivity(), AuthView {
 
-    private val presenter: LoginPresenter
-        get() = LoginPresenter(this)
+    private lateinit var presenter: LoginPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
+        presenter = LoginPresenter(this)
         presenter.setupFirebaseAuth()
-        presenter.signIn(loginButton, emailEditText.text.toString(), passwordEditText.text.toString())
+        loginButton.setOnClickListener { presenter.signIn(emailEditText.text.toString(),
+                passwordEditText.text.toString()) }
     }
 
     override fun openHomeFragment() {
-        Snackbar.make(authorizationLayout, "Successfully signed in", Snackbar.LENGTH_SHORT)
+        Toast.makeText(this, "Successfully signed in", Toast.LENGTH_SHORT).show()
     }
 
     override fun showError() {
-        Snackbar.make(authorizationLayout, "Oops! Error occurred!", Snackbar.LENGTH_SHORT)
+        Toast.makeText(this, "Oops! Error occurred!", Toast.LENGTH_SHORT).show()
     }
 
     override fun showLoading() {

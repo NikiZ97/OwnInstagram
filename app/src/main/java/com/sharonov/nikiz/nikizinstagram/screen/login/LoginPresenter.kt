@@ -13,23 +13,21 @@ class LoginPresenter(private val authView: AuthView) {
         auth = FirebaseAuth.getInstance()
         listener = FirebaseAuth.AuthStateListener {
             val user = it.currentUser
-            user?.uid ?: Log.d("TAG","signed out")
+            user?.uid ?: Log.d("TAG", "signed out")
         }
     }
 
-    public fun signIn(loginButton: AppCompatButton, login: String, password: String) {
-        loginButton.setOnClickListener {
-            //TODO: add fields validation
-            if (login.isNotEmpty() && password.isNotEmpty()) {
-                authView.showLoading()
-                auth.signInWithEmailAndPassword(login, password).addOnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        authView.showError()
-                        authView.hideLoading()
-                    } else {
-                        authView.openHomeFragment()
-                        authView.hideLoading()
-                    }
+    public fun signIn(login: String, password: String) {
+        //TODO: add fields validation
+        if (login.isNotEmpty() && password.isNotEmpty()) {
+            authView.showLoading()
+            auth.signInWithEmailAndPassword(login, password).addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    authView.showError()
+                    authView.hideLoading()
+                } else {
+                    authView.openHomeFragment()
+                    authView.hideLoading()
                 }
             }
         }
