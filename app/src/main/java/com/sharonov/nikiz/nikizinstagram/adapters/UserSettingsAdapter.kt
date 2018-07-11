@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.sharonov.nikiz.nikizinstagram.R
-import com.sharonov.nikiz.nikizinstagram.activities.EditProfileActivity
+import com.sharonov.nikiz.nikizinstagram.screen.profile.EditProfileActivity
 
 class UserSettingsAdapter(private val settingsList: List<String>,
                           private val context: Context): RecyclerView.Adapter<UserSettingsAdapter.ViewHolder>() {
