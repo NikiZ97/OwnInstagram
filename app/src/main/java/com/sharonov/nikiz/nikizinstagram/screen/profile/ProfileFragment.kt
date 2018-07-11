@@ -1,4 +1,4 @@
-package com.sharonov.nikiz.nikizinstagram.fragments
+package com.sharonov.nikiz.nikizinstagram.screen.profile
 
 
 import android.content.Intent
@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.sharonov.nikiz.nikizinstagram.R
-import com.sharonov.nikiz.nikizinstagram.activities.AccountSettingsActivity
+import com.sharonov.nikiz.nikizinstagram.screen.user_settings.AccountSettingsActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.snippet_top_profilebar.*
 

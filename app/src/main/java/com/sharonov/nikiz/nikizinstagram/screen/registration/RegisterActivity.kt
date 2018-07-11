@@ -1,4 +1,4 @@
-package com.sharonov.nikiz.nikizinstagram.activities
+package com.sharonov.nikiz.nikizinstagram.screen.registration
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

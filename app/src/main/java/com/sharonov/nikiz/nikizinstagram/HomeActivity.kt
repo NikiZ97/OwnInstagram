@@ -1,11 +1,11 @@
-package com.sharonov.nikiz.nikizinstagram.activities
+package com.sharonov.nikiz.nikizinstagram
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import com.sharonov.nikiz.nikizinstagram.R
 import com.sharonov.nikiz.nikizinstagram.extensions.setupBottomNavigationView
 import com.sharonov.nikiz.nikizinstagram.fragments.*
+import com.sharonov.nikiz.nikizinstagram.screen.profile.ProfileFragment
 import kotlinx.android.synthetic.main.layout_bottom_navigation_view.*
 
 class HomeActivity : AppCompatActivity() {

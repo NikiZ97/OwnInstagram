@@ -1,8 +1,7 @@
-package com.sharonov.nikiz.nikizinstagram.activities
+package com.sharonov.nikiz.nikizinstagram.screen.user_settings
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import com.sharonov.nikiz.nikizinstagram.R
 import com.sharonov.nikiz.nikizinstagram.adapters.UserSettingsAdapter
