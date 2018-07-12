@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.sharonov.nikiz.nikizinstagram.R
+import com.sharonov.nikiz.nikizinstagram.extensions.isPasswordCorrect
+import com.sharonov.nikiz.nikizinstagram.extensions.isStringNotEmpty
+import com.sharonov.nikiz.nikizinstagram.extensions.setupValidator
 import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : AppCompatActivity(), AuthView {
@@ -17,16 +20,25 @@ class AuthActivity : AppCompatActivity(), AuthView {
         setContentView(R.layout.activity_auth)
         presenter = LoginPresenter(this)
         presenter.setupFirebaseAuth()
-        loginButton.setOnClickListener { presenter.signIn(emailEditText.text.toString(),
-                passwordEditText.text.toString()) }
+        loginButton.setOnClickListener {
+            if (emailAndPasswordValid()) {
+                presenter.signIn(emailEditText.text.toString(), passwordEditText.text.toString())
+            }
+        }
+    }
+
+    private fun emailAndPasswordValid(): Boolean {
+        val isEmailValid = emailEditText.setupValidator(R.string.error_empty_login, { it.isStringNotEmpty() }, this)
+        val isPasswordValid = passwordEditText.setupValidator(R.string.error_incorrect_password, { it.isPasswordCorrect() }, this)
+        return isEmailValid && isPasswordValid
     }
 
     override fun openHomeFragment() {
         Toast.makeText(this, "Successfully signed in", Toast.LENGTH_SHORT).show()
     }
 
-    override fun showError() {
-        Toast.makeText(this, "Oops! Error occurred!", Toast.LENGTH_SHORT).show()
+    override fun showError(errorMessage: String) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
     override fun showLoading() {

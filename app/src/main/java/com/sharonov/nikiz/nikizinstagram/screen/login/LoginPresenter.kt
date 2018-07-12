@@ -1,15 +1,13 @@
 package com.sharonov.nikiz.nikizinstagram.screen.login
 
-import android.support.v7.widget.AppCompatButton
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import kotlin.math.log
 
 class LoginPresenter(private val authView: AuthView) {
     private lateinit var auth: FirebaseAuth
     private lateinit var listener: FirebaseAuth.AuthStateListener
 
-    public fun setupFirebaseAuth() {
+    fun setupFirebaseAuth() {
         auth = FirebaseAuth.getInstance()
         listener = FirebaseAuth.AuthStateListener {
             val user = it.currentUser
@@ -17,27 +15,24 @@ class LoginPresenter(private val authView: AuthView) {
         }
     }
 
-    public fun signIn(login: String, password: String) {
-        //TODO: add fields validation
-        if (login.isNotEmpty() && password.isNotEmpty()) {
-            authView.showLoading()
-            auth.signInWithEmailAndPassword(login, password).addOnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    authView.showError()
-                    authView.hideLoading()
-                } else {
-                    authView.openHomeFragment()
-                    authView.hideLoading()
-                }
+    fun signIn(login: String, password: String) {
+        authView.showLoading()
+        auth.signInWithEmailAndPassword(login, password).addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                authView.showError(task.exception.toString())
+                authView.hideLoading()
+            } else {
+                authView.openHomeFragment()
+                authView.hideLoading()
             }
         }
     }
 
-    public fun addAuthStateListener() {
+    fun addAuthStateListener() {
         auth.addAuthStateListener(listener)
     }
 
-    public fun removeAuthStateListener() {
+    fun removeAuthStateListener() {
         auth.removeAuthStateListener(listener)
     }
 }

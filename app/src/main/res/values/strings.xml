@@ -26,6 +26,8 @@
     <string name="prompt_create_account">No account yet? Create one</string>
     <string name="prompt_register_account">REGISTER A NEW ACCOUNT</string>
     <string name="prompt_register">Register</string>
+    <string name="error_empty_login">Login can\'t be empty</string>
+    <string name="error_incorrect_password">Password must be at least 6 characters length</string>
     <string name="prompt_full_name">Full name</string>
 
 
