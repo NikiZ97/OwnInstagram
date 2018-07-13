@@ -5,11 +5,11 @@ import android.widget.EditText
 import android.widget.Toast
 
 fun <T: EditText> T.setupValidator(errorResourceMessageId: Int, validate: (T) -> Boolean, context: Context): Boolean {
-    if (!validate(this)) {
+    return if (!validate(this)) {
         Toast.makeText(context, errorResourceMessageId, Toast.LENGTH_SHORT).show()
-        return false
+        false
     } else {
-        return true
+        true
     }
 }
 
@@ -17,3 +17,5 @@ fun <T: EditText> T.setupValidator(errorResourceMessageId: Int, validate: (T) ->
 fun EditText.isStringNotEmpty() = text.toString().isNotEmpty()
 
 fun EditText.isPasswordCorrect() = text.length > 5
+
+fun EditText.isEmailCorrect() = text.toString().matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}".toRegex())

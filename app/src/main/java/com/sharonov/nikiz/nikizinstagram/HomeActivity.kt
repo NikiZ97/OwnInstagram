@@ -7,12 +7,17 @@ import com.sharonov.nikiz.nikizinstagram.extensions.setupBottomNavigationView
 import com.sharonov.nikiz.nikizinstagram.fragments.*
 import com.sharonov.nikiz.nikizinstagram.screen.profile.ProfileFragment
 import kotlinx.android.synthetic.main.layout_bottom_navigation_view.*
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
+
+
 
 class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        Fabric.with(this, Crashlytics())
         bottomNavigationView.setupBottomNavigationView()
         loadFragment(HomeFragment.newInstance())
         bottomNavigationView.setOnNavigationItemSelectedListener {

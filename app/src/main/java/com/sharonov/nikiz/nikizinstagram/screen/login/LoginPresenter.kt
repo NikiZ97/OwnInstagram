@@ -19,13 +19,14 @@ class LoginPresenter(private val authView: AuthView) {
         authView.showLoading()
         auth.signInWithEmailAndPassword(login, password).addOnCompleteListener { task ->
             if (!task.isSuccessful) {
-                authView.showError(task.exception.toString())
+                authView.showError(task.exception?.message)
                 authView.hideLoading()
             } else {
-                authView.openHomeFragment()
+                authView.openHomeActivity()
                 authView.hideLoading()
             }
         }
+
     }
 
     fun addAuthStateListener() {

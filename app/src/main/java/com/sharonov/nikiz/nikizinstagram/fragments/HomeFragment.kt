@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 import com.sharonov.nikiz.nikizinstagram.R
-import com.sharonov.nikiz.nikizinstagram.screen.login.AuthActivity
+import com.sharonov.nikiz.nikizinstagram.screen.login.LoginActivity
 import com.sharonov.nikiz.nikizinstagram.adapters.HomeSectionsPagerAdapter
 import kotlinx.android.synthetic.main.layout_center_viewpager.*
 import kotlinx.android.synthetic.main.layout_top_tabs.*
@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
 
     private fun startLoginActivity(firebaseUser: FirebaseUser?) {
         if (firebaseUser == null) {
-            startActivity(Intent(context, AuthActivity::class.java))
+            startActivity(Intent(context, LoginActivity::class.java))
         }
     }
 

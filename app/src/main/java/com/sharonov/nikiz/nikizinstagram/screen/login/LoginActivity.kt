@@ -1,17 +1,19 @@
 package com.sharonov.nikiz.nikizinstagram.screen.login
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
+import com.sharonov.nikiz.nikizinstagram.HomeActivity
 import com.sharonov.nikiz.nikizinstagram.R
 import com.sharonov.nikiz.nikizinstagram.extensions.isPasswordCorrect
 import com.sharonov.nikiz.nikizinstagram.extensions.isStringNotEmpty
 import com.sharonov.nikiz.nikizinstagram.extensions.setupValidator
+import com.sharonov.nikiz.nikizinstagram.screen.registration.RegisterActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 
-class AuthActivity : AppCompatActivity(), AuthView {
+class LoginActivity : AppCompatActivity(), AuthView {
 
     private lateinit var presenter: LoginPresenter
 
@@ -25,6 +27,10 @@ class AuthActivity : AppCompatActivity(), AuthView {
                 presenter.signIn(emailEditText.text.toString(), passwordEditText.text.toString())
             }
         }
+
+        createAccountTextView.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 
     private fun emailAndPasswordValid(): Boolean {
@@ -33,12 +39,13 @@ class AuthActivity : AppCompatActivity(), AuthView {
         return isEmailValid && isPasswordValid
     }
 
-    override fun openHomeFragment() {
-        Toast.makeText(this, "Successfully signed in", Toast.LENGTH_SHORT).show()
+    override fun openHomeActivity() {
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
     }
 
-    override fun showError(errorMessage: String) {
-        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+    override fun showError(errorMessage: String?) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
     }
 
     override fun showLoading() {

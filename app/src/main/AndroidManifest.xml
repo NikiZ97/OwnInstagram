@@ -20,8 +20,11 @@
         </activity>
         <activity android:name=".screen.user_settings.AccountSettingsActivity" />
         <activity android:name=".screen.profile.EditProfileActivity" />
-        <activity android:name="com.sharonov.nikiz.nikizinstagram.screen.login.AuthActivity"/>
+        <activity android:name="com.sharonov.nikiz.nikizinstagram.screen.login.LoginActivity"/>
         <activity android:name=".screen.registration.RegisterActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="9b14444568e7f2c1ad29dea9c23e0e4c96d7b978" />
     </application>
 
 </manifest>

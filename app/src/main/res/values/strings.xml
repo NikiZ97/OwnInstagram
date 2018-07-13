@@ -28,6 +28,8 @@
     <string name="prompt_register">Register</string>
     <string name="error_empty_login">Login can\'t be empty</string>
     <string name="error_incorrect_password">Password must be at least 6 characters length</string>
+    <string name="error_incorrect_email">Email is incorrect</string>
+    <string name="error_empty_name">Name shouldn\'t be empty</string>
     <string name="prompt_full_name">Full name</string>
 
 
