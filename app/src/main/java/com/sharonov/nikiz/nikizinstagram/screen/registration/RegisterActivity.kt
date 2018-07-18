@@ -21,7 +21,7 @@ class RegisterActivity : AppCompatActivity(), AuthView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        presenter = RegistrationPresenter(this)
+        presenter = RegistrationPresenter(this, this)
         presenter.setupFirebaseAuth()
         registerButton.setOnClickListener {
             if (areAllFieldsValid()) {
