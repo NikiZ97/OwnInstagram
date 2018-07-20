@@ -3,6 +3,7 @@ package com.sharonov.nikiz.nikizinstagram.screen.login
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import com.sharonov.nikiz.nikizinstagram.HomeActivity
@@ -46,6 +47,14 @@ class LoginActivity : AppCompatActivity(), AuthView {
 
     override fun showError(errorMessage: String?) {
         Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showInformationMessage(messageResourceId: Int) {
+        Toast.makeText(this, messageResourceId, Toast.LENGTH_LONG).show()
+    }
+
+    override fun closeActivity() {
+        finish()
     }
 
     override fun showLoading() {

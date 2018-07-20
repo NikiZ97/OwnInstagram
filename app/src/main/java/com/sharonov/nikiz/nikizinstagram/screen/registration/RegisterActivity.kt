@@ -16,12 +16,12 @@ import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity(), AuthView {
 
-    private lateinit var presenter: RegistrationPresenter
+    private lateinit var presenter: RegisterPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        presenter = RegistrationPresenter(this, this)
+        presenter = RegisterPresenter(this, this)
         presenter.setupFirebaseAuth()
         registerButton.setOnClickListener {
             if (areAllFieldsValid()) {
@@ -46,6 +46,14 @@ class RegisterActivity : AppCompatActivity(), AuthView {
 
     override fun showError(errorMessage: String?) {
         Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showInformationMessage(messageResourceId: Int) {
+        Toast.makeText(this, messageResourceId, Toast.LENGTH_LONG).show()
+    }
+
+    override fun closeActivity() {
+        finish()
     }
 
     override fun showLoading() {

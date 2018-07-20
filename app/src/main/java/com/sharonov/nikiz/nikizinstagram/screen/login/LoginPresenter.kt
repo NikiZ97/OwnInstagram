@@ -22,8 +22,18 @@ class LoginPresenter(private val authView: AuthView) {
                 authView.showError(task.exception?.message)
                 authView.hideLoading()
             } else {
-                authView.openHomeActivity()
-                authView.hideLoading()
+                val currentUser = auth.currentUser
+                try {
+                    if (currentUser?.isEmailVerified!!) {
+                        authView.openHomeActivity()
+                        authView.hideLoading()
+                    } else {
+                        authView.showError("Your email isn't verified. Please check your email address")
+                        authView.hideLoading()
+                    }
+                } catch (e: KotlinNullPointerException) {
+                    Log.e("TAG", "KotlinNullPointerException: ${e.message}")
+                }
             }
         }
 

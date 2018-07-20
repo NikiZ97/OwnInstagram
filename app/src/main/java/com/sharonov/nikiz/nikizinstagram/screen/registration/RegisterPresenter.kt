@@ -1,6 +1,7 @@
 package com.sharonov.nikiz.nikizinstagram.screen.registration
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -10,8 +11,9 @@ import com.sharonov.nikiz.nikizinstagram.extensions.expandUsername
 import com.sharonov.nikiz.nikizinstagram.screen.login.AuthView
 import com.sharonov.nikiz.nikizinstagram.R
 import com.sharonov.nikiz.nikizinstagram.content.UserAccountSettings
+import com.sharonov.nikiz.nikizinstagram.screen.login.LoginActivity
 
-class RegistrationPresenter(private val authView: AuthView, private val context: Context) {
+class RegisterPresenter(private val authView: AuthView, private val context: Context) {
     private lateinit var auth: FirebaseAuth
     private lateinit var listener: FirebaseAuth.AuthStateListener
     private var userId: String? = null
@@ -50,10 +52,10 @@ class RegistrationPresenter(private val authView: AuthView, private val context:
                         authView.showError(task.exception?.message)
                         authView.hideLoading()
                     } else {
+                        sendVerificationEmail()
                         userId = auth.currentUser?.uid
                         saveUserToDatabase(email)
-                        authView.openHomeActivity()
-                        authView.hideLoading()
+                        authView.closeActivity()
                     }
                 })
     }
@@ -65,6 +67,7 @@ class RegistrationPresenter(private val authView: AuthView, private val context:
                     fullUserName = databaseReference.push().key?.substring(3, 10)
                 }
                 addNewUserToDatabase(email, fullUserName, "", "", "")
+                auth.signOut()
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -85,6 +88,20 @@ class RegistrationPresenter(private val authView: AuthView, private val context:
         databaseReference.child(context.getString(R.string.dbname_user_account_settings))
                 .child(userId!!)
                 .setValue(userAccountSettings)
+    }
+
+    private fun sendVerificationEmail() {
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.let {
+            it.sendEmailVerification().addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    authView.showError(context.getString(R.string.error_verification_email_send_failed))
+                } else {
+                    authView.showInformationMessage(R.string.prompt_verification_email_sent)
+                    authView.closeActivity()
+                }
+            }
+        }
     }
 
     fun addAuthStateListener() {
