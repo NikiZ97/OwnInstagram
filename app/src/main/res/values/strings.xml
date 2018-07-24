@@ -38,6 +38,11 @@
     <string name="dbname_users">users</string>
     <string name="dbname_user_account_settings">user_account_settings</string>
 
+    <!-- Dialogs -->
+    <string name="prompt_title_sign_out">Sign out</string>
+    <string name="prompt_sign_out">Do you want to exit?</string>
+    <string name="prompt_ok">OK</string>
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
