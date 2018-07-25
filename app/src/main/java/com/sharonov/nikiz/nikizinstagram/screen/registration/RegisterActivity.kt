@@ -7,10 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.sharonov.nikiz.nikizinstagram.HomeActivity
 import com.sharonov.nikiz.nikizinstagram.R
-import com.sharonov.nikiz.nikizinstagram.extensions.isEmailCorrect
-import com.sharonov.nikiz.nikizinstagram.extensions.isPasswordCorrect
-import com.sharonov.nikiz.nikizinstagram.extensions.isStringNotEmpty
-import com.sharonov.nikiz.nikizinstagram.extensions.setupValidator
+import com.sharonov.nikiz.nikizinstagram.extensions.*
 import com.sharonov.nikiz.nikizinstagram.screen.login.AuthView
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -24,6 +21,7 @@ class RegisterActivity : AppCompatActivity(), AuthView {
         presenter = RegisterPresenter(this, this)
         presenter.setupFirebaseAuth()
         registerButton.setOnClickListener {
+            hideKeyboard(this)
             if (areAllFieldsValid()) {
                 presenter.registerAccount(emailEditText.text.toString(),
                         fullNameEditText.text.toString(),

@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.sharonov.nikiz.nikizinstagram.HomeActivity
 import com.sharonov.nikiz.nikizinstagram.R
+import com.sharonov.nikiz.nikizinstagram.extensions.hideKeyboard
 import com.sharonov.nikiz.nikizinstagram.extensions.isPasswordCorrect
 import com.sharonov.nikiz.nikizinstagram.extensions.isStringNotEmpty
 import com.sharonov.nikiz.nikizinstagram.extensions.setupValidator
@@ -23,6 +24,7 @@ class LoginActivity : AppCompatActivity(), AuthView {
         presenter = LoginPresenter(this)
         presenter.setupFirebaseAuth()
         loginButton.setOnClickListener {
+            hideKeyboard(this)
             if (emailAndPasswordValid()) {
                 presenter.signIn(emailEditText.text.toString(), passwordEditText.text.toString())
             }
