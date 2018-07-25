@@ -16,12 +16,13 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/displayName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:text="sharon makaron" />
+                    tools:text="sharon makaron" />
 
                 <ImageView
                     android:id="@+id/profileMenu"

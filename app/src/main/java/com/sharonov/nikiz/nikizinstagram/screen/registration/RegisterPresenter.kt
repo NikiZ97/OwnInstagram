@@ -1,17 +1,15 @@
 package com.sharonov.nikiz.nikizinstagram.screen.registration
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.sharonov.nikiz.nikizinstagram.R
 import com.sharonov.nikiz.nikizinstagram.content.User
+import com.sharonov.nikiz.nikizinstagram.content.UserAccountSettings
 import com.sharonov.nikiz.nikizinstagram.extensions.condenseUsername
 import com.sharonov.nikiz.nikizinstagram.extensions.expandUsername
 import com.sharonov.nikiz.nikizinstagram.screen.login.AuthView
-import com.sharonov.nikiz.nikizinstagram.R
-import com.sharonov.nikiz.nikizinstagram.content.UserAccountSettings
-import com.sharonov.nikiz.nikizinstagram.screen.login.LoginActivity
 
 class RegisterPresenter(private val authView: AuthView, private val context: Context) {
     private lateinit var auth: FirebaseAuth
@@ -81,7 +79,7 @@ class RegisterPresenter(private val authView: AuthView, private val context: Con
                              website: String, profilePhoto: String) {
         val user = User(userId, 1, email, username?.condenseUsername())
         val userAccountSettings = UserAccountSettings(description, username, 0, 0, 0,
-                profilePhoto, username, website)
+                profilePhoto, username?.condenseUsername(), website)
         databaseReference.child(context.getString(R.string.dbname_users))
                 .child(userId!!)
                 .setValue(user)
