@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import com.bumptech.glide.Glide
 import com.sharonov.nikiz.nikizinstagram.R
 import com.sharonov.nikiz.nikizinstagram.content.UserSettings
 import com.sharonov.nikiz.nikizinstagram.screen.user_settings.AccountSettingsActivity
@@ -33,6 +34,7 @@ class ProfileFragment : Fragment(), ProfileView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
         profileProgressBar.visibility = View.GONE
+        textEditProfile.setOnClickListener { startActivity(Intent(context, EditProfileActivity::class.java)) }
     }
 
     private fun setupToolbar() {
@@ -49,6 +51,7 @@ class ProfileFragment : Fragment(), ProfileView {
         tvPosts.text = userAccountSettings?.posts.toString()
         tvFollowers.text = userAccountSettings?.followers.toString()
         tvFollowing.text = userAccountSettings?.following.toString()
+        Glide.with(context!!).load(userAccountSettings?.profile_photo).into(profileThumbnail)
     }
 
     override fun onStart() {
