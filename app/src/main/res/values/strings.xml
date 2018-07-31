@@ -17,6 +17,8 @@
     <string name="prompt_edit_text_phone">phone</string>
     <string name="prompt_edit_text_description">description</string>
     <string name="prompt_private_information">Private information</string>
+    <string name="error_username_not_unique">The username already exists</string>
+    <string name="prompt_profile_settings_saved">Settings successfully saved</string>
 
 
     <!-- Registration (authorization) screen -->

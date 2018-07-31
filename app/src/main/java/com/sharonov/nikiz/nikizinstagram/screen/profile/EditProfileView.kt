@@ -5,4 +5,5 @@ import com.sharonov.nikiz.nikizinstagram.content.UserSettings
 
 interface EditProfileView {
     fun preFillUserData(userSettings: UserSettings)
+    fun showMessage(messageId: Int)
 }

@@ -13,3 +13,10 @@ data class UserAccountSettings(var description: String? = null,
 
 data class User(var user_id: String? = null, var phone_number: Long? = null,
                 var email: String? = null, var username: String? = null)
+
+class UserEditSettings(var display_name: String? = null,
+                       var username: String? = null,
+                       var website: String? = null,
+                       var description: String? = null,
+                       var phone_number: Long? = null,
+                       var email: String? = null)
