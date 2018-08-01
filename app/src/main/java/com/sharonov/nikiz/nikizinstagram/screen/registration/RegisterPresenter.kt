@@ -7,6 +7,7 @@ import com.google.firebase.database.*
 import com.sharonov.nikiz.nikizinstagram.R
 import com.sharonov.nikiz.nikizinstagram.content.User
 import com.sharonov.nikiz.nikizinstagram.content.UserAccountSettings
+import com.sharonov.nikiz.nikizinstagram.content.UserEditSettings
 import com.sharonov.nikiz.nikizinstagram.extensions.condenseUsername
 import com.sharonov.nikiz.nikizinstagram.extensions.expandUsername
 import com.sharonov.nikiz.nikizinstagram.screen.login.AuthView
@@ -18,6 +19,7 @@ class RegisterPresenter(private val authView: AuthView, private val context: Con
     private var fullUserName: String? = null
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var userEmail: String
 
     fun setupFirebaseAuth() {
         auth = FirebaseAuth.getInstance()
@@ -30,19 +32,33 @@ class RegisterPresenter(private val authView: AuthView, private val context: Con
         databaseReference = firebaseDatabase.reference
     }
 
-    private fun usernameExists(username: String?, dataSnapshot: DataSnapshot?): Boolean {
-        val user = User()
-        dataSnapshot?.child(userId!!)?.children?.forEach {
-            user.username = it.getValue(User::class.java)?.username
-            if (user.username?.expandUsername() == username) {
-                return true
+    private fun checkIfUsernameExists(username: String?) {
+        val reference = FirebaseDatabase.getInstance().reference
+        val query = reference
+                .child(context.getString(R.string.dbname_users))
+                .orderByChild("username")
+                .equalTo(username)
+        query.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {}
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    fullUserName = databaseReference.push().key?.substring(3, 10)
+                }
+
+                if (dataSnapshot.children.any { it.exists() }) {
+                    authView.showInformationMessage(R.string.error_username_not_unique)
+                }
+
+                addNewUserToDatabase(userEmail, fullUserName, "", "", "")
+                auth.signOut()
             }
-        }
-        return false
+        })
     }
 
     fun registerAccount(email: String, fullName: String, password: String) {
         fullUserName = fullName
+        userEmail = email
         authView.showLoading()
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener({ task ->
@@ -52,20 +68,16 @@ class RegisterPresenter(private val authView: AuthView, private val context: Con
                     } else {
                         sendVerificationEmail()
                         userId = auth.currentUser?.uid
-                        saveUserToDatabase(email)
+                        saveUserToDatabase()
                         authView.closeActivity()
                     }
                 })
     }
 
-    private fun saveUserToDatabase(email: String) {
+    private fun saveUserToDatabase() {
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                if (usernameExists(fullUserName, p0)) {
-                    fullUserName = databaseReference.push().key?.substring(3, 10)
-                }
-                addNewUserToDatabase(email, fullUserName, "", "", "")
-                auth.signOut()
+                checkIfUsernameExists(fullUserName)
             }
 
             override fun onCancelled(p0: DatabaseError) {

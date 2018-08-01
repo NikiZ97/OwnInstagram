@@ -17,6 +17,7 @@ class EditProfilePresenter(val editProfileView: EditProfileView, val context: Co
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private lateinit var userId: String
+    private lateinit var settings: UserSettings
 
     fun setupFirebaseAuth() {
         auth = FirebaseAuth.getInstance()
@@ -34,30 +35,48 @@ class EditProfilePresenter(val editProfileView: EditProfileView, val context: Co
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userSettings = getAllUserInfo(dataSnapshot, context, userId)
+                settings = userSettings
                 editProfileView.preFillUserData(userSettings)
             }
         })
     }
 
     /**
-     * This method checks if username and email are unique and saves all settings
+     * This method checks if username is unique and saves all settings
      * in the database
      */
     fun saveProfileSettings(userEditSettings: UserEditSettings) {
-        var username: String? = null
+        val username: String? = null
         databaseReference.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {}
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.child(context.getString(R.string.dbname_users)).children.forEach {
-                    if (it.key == userId) {
-                        username = it.getValue(User::class.java)?.username
-                    }
-                }
-                if (username == userEditSettings.username) {
+                if (settings.user?.username == userEditSettings.username) {
                     saveSettingsToDatabase(userEditSettings)
                     editProfileView.showMessage(R.string.prompt_profile_settings_saved)
                 } else {
+                    checkIfUsernameExists(username, userEditSettings)
+                }
+            }
+        })
+    }
+
+    private fun checkIfUsernameExists(username: String?, userEditSettings: UserEditSettings) {
+        val reference = FirebaseDatabase.getInstance().reference
+        val query = reference
+                .child(context.getString(R.string.dbname_users))
+                .orderByChild("username")
+                .equalTo(username)
+        query.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {}
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    saveSettingsToDatabase(userEditSettings)
+                    editProfileView.showMessage(R.string.prompt_profile_settings_saved)
+                }
+
+                if (dataSnapshot.children.any { it.exists() }) {
                     editProfileView.showMessage(R.string.error_username_not_unique)
                 }
             }
@@ -73,6 +92,10 @@ class EditProfilePresenter(val editProfileView: EditProfileView, val context: Co
                 .child(userId)
                 .child("phone_number")
                 .setValue(userEditSettings.phone_number)
+        databaseReference.child(context.getString(R.string.dbname_users))
+                .child(userId)
+                .child("username")
+                .setValue(userEditSettings.username)
         databaseReference.child(context.getString(R.string.dbname_user_account_settings))
                 .child(userId)
                 .child("username")
