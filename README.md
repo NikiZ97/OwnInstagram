@@ -10,3 +10,6 @@ For simplifying registration/authentication processes Firebase is used:
 3. Firebase Cloud Store
 
 Original Istagram-clone you can find [here](https://github.com/mitchtabian/Android-Instagram-Clone).
+
+## UPD
+This project has been closed because of not enough time to do it.
